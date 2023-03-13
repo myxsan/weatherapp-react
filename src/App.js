@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import WeekPanel from "./components/WeekPanel";
 
 function App() {
+  const [data, setData] = useState(
+    axios(
+      "http://api.weatherapi.com/v1/current.json?key=61a0eef40d3543bca09143107231303&q=London&aqi=no"
+    )
+      .then((res) => res.data)
+      .finally(() => console.log(data))
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <WeekPanel />
     </div>
   );
 }
