@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 
 function Header() {
-  const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
+  const { handleSubmit, handleChange, values } =
     useFormik({
       initialValues: {
         location: "",
