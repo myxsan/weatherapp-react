@@ -12,11 +12,14 @@ export const WeatherProvider = ({ children }) => {
 
   const [weatherData, setWeatherData] = useState(initialValues);
   const [currentCity, setCurrentCity] = useState("");
-  const [currentCoordinates, setCurrentCoordinates] = useState([]);
 
   useEffect(() => {
     setCurrentCity("Istanbul");
   }, []);
+
+  useEffect(() => {
+    console.log("Changed weather data", weatherData)
+  },[weatherData])
 
   useEffect(() => {
     if (currentCity !== "") {
@@ -29,16 +32,14 @@ export const WeatherProvider = ({ children }) => {
             `https://api.openweathermap.org/data/2.5/weather?lat=${data.lat}&lon=${data.lon}&appid=2ca583651f3413f20056ec25604aea24&units=metric`
           )
             .then((res) => res.data.main)
-            .then((data) =>{
+            .then((data) => {
               console.log(data)
               setWeatherData({
                 name: currentCity,
                 tempMin: data.temp_min,
                 tempMax: data.temp_max,
-              })
-            }
-            )
-            .finally(console.log(weatherData));
+              });
+            })
         });
     }
   }, [currentCity]);
