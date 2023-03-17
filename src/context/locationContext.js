@@ -8,18 +8,11 @@ export const WeatherProvider = ({ children }) => {
     name: "",
     tempMin: 0,
     tempMax: 0,
+    icon: "",
   };
 
   const [weatherData, setWeatherData] = useState(initialValues);
   const [currentCity, setCurrentCity] = useState("");
-
-  useEffect(() => {
-    setCurrentCity("Istanbul");
-  }, []);
-
-  useEffect(() => {
-    console.log("Changed weather data", weatherData)
-  },[weatherData])
 
   useEffect(() => {
     if (currentCity !== "") {
@@ -31,13 +24,13 @@ export const WeatherProvider = ({ children }) => {
           axios(
             `https://api.openweathermap.org/data/2.5/weather?lat=${data.lat}&lon=${data.lon}&appid=2ca583651f3413f20056ec25604aea24&units=metric`
           )
-            .then((res) => res.data.main)
+            .then((res) => res.data)
             .then((data) => {
-              console.log(data)
               setWeatherData({
                 name: currentCity,
-                tempMin: data.temp_min,
-                tempMax: data.temp_max,
+                tempMin: data.main.temp_min,
+                tempMax: data.main.temp_max,
+                icon: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
               });
             })
         });
@@ -46,7 +39,7 @@ export const WeatherProvider = ({ children }) => {
 
   const values = {
     weatherData,
-    setWeatherData,
+    setCurrentCity,
   };
 
   return (

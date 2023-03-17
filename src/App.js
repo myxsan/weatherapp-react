@@ -5,12 +5,10 @@ import { WeatherProvider } from "./context/locationContext";
 
 function App() {
   return (
-    <div>
+    <WeatherProvider>
       <Header />
-      <WeatherProvider>
-        <WeekPanel />
-      </WeatherProvider>
-    </div>
+      <WeekPanel />
+    </WeatherProvider>
   );
 }
 
